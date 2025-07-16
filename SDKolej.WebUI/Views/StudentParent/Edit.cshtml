@@ -1,0 +1,52 @@
+@model SDKolej.Business.DTOs.StudentParentDto
+
+@{
+    ViewData["Title"] = "Öğrenci-Veli Düzenle";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-edit me-2"></i>
+                        Öğrenci-Veli Düzenle
+                    </h3>
+                </div>
+                <form asp-action="Edit">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="StudentId" class="control-label">Öğrenci ID</label>
+                            <input asp-for="StudentId" class="form-control" />
+                            <span asp-validation-for="StudentId" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="ParentId" class="control-label">Veli ID</label>
+                            <input asp-for="ParentId" class="form-control" />
+                            <span asp-validation-for="ParentId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i>
+                            Güncelle
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            Listeye Dön
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

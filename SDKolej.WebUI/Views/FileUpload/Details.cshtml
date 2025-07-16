@@ -1,0 +1,51 @@
+@model SDKolej.Business.DTOs.FileUploadDto
+
+@{
+    ViewData["Title"] = "File Upload Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">File Upload Details</h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FileName)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.FileName)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FilePath)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.FilePath)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FileSize)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.FileSize)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FileType)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.FileType)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.UploadDate)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.UploadDate)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.UploadedBy)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.UploadedBy)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

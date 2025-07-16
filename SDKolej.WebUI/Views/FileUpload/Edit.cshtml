@@ -1,0 +1,77 @@
+@model SDKolej.Business.DTOs.FileUploadDto
+
+@{
+    ViewData["Title"] = "Edit File Upload";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Edit File Upload</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="FileName" class="form-label"></label>
+                                    <input asp-for="FileName" class="form-control" />
+                                    <span asp-validation-for="FileName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="FilePath" class="form-label"></label>
+                                    <input asp-for="FilePath" class="form-control" />
+                                    <span asp-validation-for="FilePath" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="FileSize" class="form-label"></label>
+                                    <input asp-for="FileSize" class="form-control" />
+                                    <span asp-validation-for="FileSize" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="FileType" class="form-label"></label>
+                                    <input asp-for="FileType" class="form-control" />
+                                    <span asp-validation-for="FileType" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="UploadedBy" class="form-label"></label>
+                                    <input asp-for="UploadedBy" class="form-control" />
+                                    <span asp-validation-for="UploadedBy" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

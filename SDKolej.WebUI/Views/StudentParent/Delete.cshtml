@@ -1,0 +1,50 @@
+@model SDKolej.Business.DTOs.StudentParentDto
+
+@{
+    ViewData["Title"] = "Öğrenci-Veli Sil";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Öğrenci-Veli Sil
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">Dikkat!</h4>
+                        <p>Bu öğrenci-veli kaydını silmek istediğinizden emin misiniz?</p>
+                    </div>
+                    
+                    <dl class="row">
+                        <dt class="col-sm-3">ID:</dt>
+                        <dd class="col-sm-9">@Model.Id</dd>
+
+                        <dt class="col-sm-3">Öğrenci ID:</dt>
+                        <dd class="col-sm-9">@Model.StudentId</dd>
+
+                        <dt class="col-sm-3">Veli ID:</dt>
+                        <dd class="col-sm-9">@Model.ParentId</dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-1"></i>
+                            Sil
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            Listeye Dön
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

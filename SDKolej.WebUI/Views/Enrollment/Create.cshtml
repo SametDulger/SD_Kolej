@@ -1,0 +1,25 @@
+@model SDKolej.Business.DTOs.EnrollmentDto
+@{
+    ViewData["Title"] = "Yeni Kayıt";
+}
+<h2>Yeni Kayıt</h2>
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="StudentId" class="form-label"></label>
+        <input asp-for="StudentId" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ClassId" class="form-label"></label>
+        <input asp-for="ClassId" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Year" class="form-label"></label>
+        <input asp-for="Year" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="IsActive" class="form-label"></label>
+        <input asp-for="IsActive" type="checkbox" class="form-check-input" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form> 

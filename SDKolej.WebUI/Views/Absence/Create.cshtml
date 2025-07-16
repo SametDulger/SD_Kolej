@@ -1,0 +1,25 @@
+@model SDKolej.Business.DTOs.AbsenceDto
+@{
+    ViewData["Title"] = "Yeni Devamsızlık";
+}
+<h2>Yeni Devamsızlık</h2>
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="StudentId" class="form-label"></label>
+        <input asp-for="StudentId" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label"></label>
+        <input asp-for="Date" type="date" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="IsExcused" class="form-label"></label>
+        <input asp-for="IsExcused" type="checkbox" class="form-check-input" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="IsDutyStudent" class="form-label"></label>
+        <input asp-for="IsDutyStudent" type="checkbox" class="form-check-input" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form> 

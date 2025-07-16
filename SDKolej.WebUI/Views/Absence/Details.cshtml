@@ -1,0 +1,15 @@
+@model SDKolej.Business.DTOs.AbsenceDto
+@{
+    ViewData["Title"] = "Devamsızlık Detay";
+}
+<h2>Devamsızlık Detay</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Devamsızlık #@Model.Id</h5>
+        <p class="card-text">Öğrenci: @Model.StudentId</p>
+        <p class="card-text">Tarih: @Model.Date.ToShortDateString()</p>
+        <p class="card-text">Raporlu: @Model.IsExcused</p>
+        <p class="card-text">Nöbetçi: @Model.IsDutyStudent</p>
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</div> 

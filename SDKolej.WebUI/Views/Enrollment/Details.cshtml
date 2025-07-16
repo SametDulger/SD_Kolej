@@ -1,0 +1,15 @@
+@model SDKolej.Business.DTOs.EnrollmentDto
+@{
+    ViewData["Title"] = "Kayıt Detay";
+}
+<h2>Kayıt Detay</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Kayıt #@Model.Id</h5>
+        <p class="card-text">Öğrenci: @Model.StudentId</p>
+        <p class="card-text">Sınıf: @Model.ClassId</p>
+        <p class="card-text">Yıl: @Model.Year</p>
+        <p class="card-text">Aktif: @Model.IsActive</p>
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</div> 

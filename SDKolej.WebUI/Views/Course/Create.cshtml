@@ -1,0 +1,17 @@
+@model SDKolej.Business.DTOs.CourseDto
+@{
+    ViewData["Title"] = "Yeni Ders";
+}
+<h2>Yeni Ders</h2>
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ParentCourseId" class="form-label"></label>
+        <input asp-for="ParentCourseId" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form> 

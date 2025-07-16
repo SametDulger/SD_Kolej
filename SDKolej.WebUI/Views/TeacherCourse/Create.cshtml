@@ -1,0 +1,51 @@
+@model SDKolej.Business.DTOs.TeacherCourseDto
+
+@{
+    ViewData["Title"] = "Yeni Öğretmen-Ders";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-plus me-2"></i>
+                        Yeni Öğretmen-Ders Oluştur
+                    </h3>
+                </div>
+                <form asp-action="Create">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="TeacherId" class="control-label">Öğretmen ID</label>
+                            <input asp-for="TeacherId" class="form-control" />
+                            <span asp-validation-for="TeacherId" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="CourseId" class="control-label">Ders ID</label>
+                            <input asp-for="CourseId" class="form-control" />
+                            <span asp-validation-for="CourseId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>
+                            Kaydet
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            Listeye Dön
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

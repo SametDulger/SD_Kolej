@@ -1,0 +1,21 @@
+@model SDKolej.Business.DTOs.TeacherDto
+@{
+    ViewData["Title"] = "Öğretmen Sil";
+}
+<h2>Öğretmen Sil</h2>
+<div class="alert alert-danger">
+    <p>Bu öğretmeni silmek istediğinize emin misiniz?</p>
+    <dl class="row">
+        <dt class="col-sm-2">Ad</dt>
+        <dd class="col-sm-10">@Model.FirstName</dd>
+        <dt class="col-sm-2">Soyad</dt>
+        <dd class="col-sm-10">@Model.LastName</dd>
+        <dt class="col-sm-2">Branş</dt>
+        <dd class="col-sm-10">@Model.BranchId</dd>
+    </dl>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div> 
