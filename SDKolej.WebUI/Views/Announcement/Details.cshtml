@@ -1,0 +1,13 @@
+@model SDKolej.Business.DTOs.AnnouncementDto
+@{
+    ViewData["Title"] = "Duyuru Detay";
+}
+<h2>Duyuru Detay</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">@Model.Content</p>
+        <p class="card-text">Tarih: @Model.Date.ToShortDateString()</p>
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</div> 

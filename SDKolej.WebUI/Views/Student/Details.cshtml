@@ -1,0 +1,14 @@
+@model SDKolej.Business.DTOs.StudentDto
+@{
+    ViewData["Title"] = "Öğrenci Detay";
+}
+<h2>Öğrenci Detay</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
+        <p class="card-text">Okul No: @Model.SchoolNumber</p>
+        <p class="card-text">Kayıt Tarihi: @(Model.RegistrationDate?.ToShortDateString() ?? "-")</p>
+        <p class="card-text">Sınıf: @Model.ClassId</p>
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</div> 

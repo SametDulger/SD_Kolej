@@ -1,0 +1,42 @@
+@model SDKolej.Business.DTOs.BranchDto
+
+@{
+    ViewData["Title"] = "Branch Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Branch Details</h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Address)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Address)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Phone)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Phone)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

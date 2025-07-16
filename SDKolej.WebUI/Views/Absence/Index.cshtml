@@ -1,0 +1,33 @@
+@model List<SDKolej.Business.DTOs.AbsenceDto>
+@{
+    ViewData["Title"] = "Devamsızlık Listesi";
+}
+<h2>Devamsızlık Listesi</h2>
+<a class="btn btn-primary mb-2" asp-action="Create">Yeni Devamsızlık</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Öğrenci</th>
+            <th>Tarih</th>
+            <th>Raporlu</th>
+            <th>Nöbetçi</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StudentId</td>
+            <td>@item.Date.ToShortDateString()</td>
+            <td>@item.IsExcused</td>
+            <td>@item.IsDutyStudent</td>
+            <td>
+                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Detay</a>
+                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table> 

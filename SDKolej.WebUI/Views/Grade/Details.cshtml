@@ -1,0 +1,14 @@
+@model SDKolej.Business.DTOs.GradeDto
+@{
+    ViewData["Title"] = "Not Detay";
+}
+<h2>Not Detay</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Not #@Model.Id</h5>
+        <p class="card-text">Öğrenci: @Model.StudentId</p>
+        <p class="card-text">Ders: @Model.CourseId</p>
+        <p class="card-text">Not: @Model.Score</p>
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</div> 

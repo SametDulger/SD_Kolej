@@ -1,0 +1,21 @@
+@model SDKolej.Business.DTOs.GradeDto
+@{
+    ViewData["Title"] = "Not Sil";
+}
+<h2>Not Sil</h2>
+<div class="alert alert-danger">
+    <p>Bu notu silmek istediğinize emin misiniz?</p>
+    <dl class="row">
+        <dt class="col-sm-2">Öğrenci</dt>
+        <dd class="col-sm-10">@Model.StudentId</dd>
+        <dt class="col-sm-2">Ders</dt>
+        <dd class="col-sm-10">@Model.CourseId</dd>
+        <dt class="col-sm-2">Not</dt>
+        <dd class="col-sm-10">@Model.Score</dd>
+    </dl>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div> 

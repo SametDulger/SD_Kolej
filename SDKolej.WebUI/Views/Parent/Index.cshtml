@@ -1,0 +1,29 @@
+@model List<SDKolej.Business.DTOs.ParentDto>
+@{
+    ViewData["Title"] = "Veli Listesi";
+}
+<h2>Veli Listesi</h2>
+<a class="btn btn-primary mb-2" asp-action="Create">Yeni Veli</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>
+                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Detay</a>
+                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table> 

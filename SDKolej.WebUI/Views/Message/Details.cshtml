@@ -1,0 +1,60 @@
+@model SDKolej.Business.DTOs.MessageDto
+
+@{
+    ViewData["Title"] = "Message Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Message Details</h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SenderId)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.SenderId)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ReceiverId)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.ReceiverId)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Subject)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Subject)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Content)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Content)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SentDate)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.SentDate)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.IsRead)</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsRead)
+                            {
+                                <span class="badge bg-success">Read</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">Unread</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

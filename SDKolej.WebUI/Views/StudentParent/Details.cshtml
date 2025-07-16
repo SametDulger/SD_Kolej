@@ -1,0 +1,42 @@
+@model SDKolej.Business.DTOs.StudentParentDto
+
+@{
+    ViewData["Title"] = "Öğrenci-Veli Detayları";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-users me-2"></i>
+                        Öğrenci-Veli Detayları
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">ID:</dt>
+                        <dd class="col-sm-9">@Model.Id</dd>
+
+                        <dt class="col-sm-3">Öğrenci ID:</dt>
+                        <dd class="col-sm-9">@Model.StudentId</dd>
+
+                        <dt class="col-sm-3">Veli ID:</dt>
+                        <dd class="col-sm-9">@Model.ParentId</dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                        <i class="fas fa-edit me-1"></i>
+                        Düzenle
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>
+                        Listeye Dön
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
