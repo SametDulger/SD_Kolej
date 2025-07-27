@@ -6,7 +6,7 @@ namespace SDKolej.Business.Interfaces
 {
     public interface ICourseService
     {
-        Task<CourseDto> GetByIdAsync(int id);
+        Task<CourseDto?> GetByIdAsync(int id);
         Task<IEnumerable<CourseDto>> GetAllAsync();
         Task AddAsync(CourseDto courseDto);
         Task UpdateAsync(CourseDto courseDto);

@@ -1,0 +1,90 @@
+@model IEnumerable<SDKolej.Business.DTOs.StudentCourseDto>
+@{
+    ViewData["Title"] = "Öğrenci Dersleri";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-list me-2"></i>
+                        Öğrenci Dersleri
+                    </h3>
+                    <div class="card-tools">
+                        <a asp-action="Create" class="btn btn-primary">
+                            <i class="fas fa-plus me-1"></i>
+                            Yeni Öğrenci Dersi
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            @TempData["Success"]
+                        </div>
+                    }
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            @TempData["Error"]
+                        </div>
+                    }
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Öğrenci</th>
+                                <th>Ders</th>
+                                <th>Sınıf</th>
+                                <th>Öğretmen</th>
+                                <th>Akademik Yıl</th>
+                                <th>Durum</th>
+                                <th>Kayıt Tarihi</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(item.Student?.FirstName) @(item.Student?.LastName) - @(item.Student?.SchoolNumber)</td>
+                                    <td>@item.Course?.Name</td>
+                                    <td>@(item.Class?.Name) - @(item.Class?.Branch?.Name)</td>
+                                    <td>@(item.Teacher?.FirstName) @(item.Teacher?.LastName)</td>
+                                    <td>@item.AcademicYear</td>
+                                    <td>
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge badge-success">Aktif</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Pasif</span>
+                                        }
+                                    </td>
+                                    <td>@item.EnrollmentDate.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

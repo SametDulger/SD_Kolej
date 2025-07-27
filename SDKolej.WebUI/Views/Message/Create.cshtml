@@ -18,15 +18,19 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label asp-for="SenderId" class="form-label"></label>
-                                    <input asp-for="SenderId" class="form-control" />
+                                    <label asp-for="SenderId" class="form-label">Gönderen</label>
+                                    <select asp-for="SenderId" class="form-control" asp-items="ViewBag.Senders">
+                                        <option value="">Gönderen Seçiniz</option>
+                                    </select>
                                     <span asp-validation-for="SenderId" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label asp-for="ReceiverId" class="form-label"></label>
-                                    <input asp-for="ReceiverId" class="form-control" />
+                                    <label asp-for="ReceiverId" class="form-label">Alıcı</label>
+                                    <select asp-for="ReceiverId" class="form-control" asp-items="ViewBag.Receivers">
+                                        <option value="">Alıcı Seçiniz</option>
+                                    </select>
                                     <span asp-validation-for="ReceiverId" class="text-danger"></span>
                                 </div>
                             </div>

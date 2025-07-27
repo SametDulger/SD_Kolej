@@ -6,7 +6,7 @@ namespace SDKolej.Business.Interfaces
 {
     public interface IMessageService
     {
-        Task<MessageDto> GetByIdAsync(int id);
+        Task<MessageDto?> GetByIdAsync(int id);
         Task<IEnumerable<MessageDto>> GetAllAsync();
         Task AddAsync(MessageDto messageDto);
         Task UpdateAsync(MessageDto messageDto);

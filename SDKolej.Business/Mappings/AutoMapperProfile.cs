@@ -24,6 +24,7 @@ namespace SDKolej.Business.Mappings
             CreateMap<ClassCourse, ClassCourseDto>().ReverseMap();
             CreateMap<TeacherCourse, TeacherCourseDto>().ReverseMap();
             CreateMap<StudentParent, StudentParentDto>().ReverseMap();
+            CreateMap<StudentCourse, StudentCourseDto>().ReverseMap();
         }
     }
 } 

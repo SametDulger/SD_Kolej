@@ -12,38 +12,53 @@ namespace SDKolej.Business.Services
     {
         private readonly IRepository<Document> _documentRepository;
         private readonly IMapper _mapper;
+        
         public DocumentService(IRepository<Document> documentRepository, IMapper mapper)
         {
-            _documentRepository = documentRepository;
-            _mapper = mapper;
+            _documentRepository = documentRepository ?? throw new ArgumentNullException(nameof(documentRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<DocumentDto> GetByIdAsync(int id)
+        
+        public async Task<DocumentDto?> GetByIdAsync(int id)
         {
-            var document = await _documentRepository.GetByIdAsync(id);
-            return _mapper.Map<DocumentDto>(document);
+            var document = await _documentRepository.GetByIdWithIncludeAsync(id, d => d.Student);
+            return document != null ? _mapper.Map<DocumentDto>(document) : null;
         }
+        
         public async Task<IEnumerable<DocumentDto>> GetAllAsync()
         {
-            var documents = await _documentRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<DocumentDto>>(documents);
+            var documents = await _documentRepository.GetAllWithIncludeAsync(d => d.Student);
+            return documents != null ? _mapper.Map<IEnumerable<DocumentDto>>(documents) : new List<DocumentDto>();
         }
+        
         public async Task AddAsync(DocumentDto documentDto)
         {
+            if (documentDto == null)
+                throw new ArgumentNullException(nameof(documentDto));
+                
             var document = _mapper.Map<Document>(documentDto);
             await _documentRepository.AddAsync(document);
             await _documentRepository.SaveChangesAsync();
         }
+        
         public async Task UpdateAsync(DocumentDto documentDto)
         {
+            if (documentDto == null)
+                throw new ArgumentNullException(nameof(documentDto));
+                
             var document = _mapper.Map<Document>(documentDto);
             _documentRepository.Update(document);
             await _documentRepository.SaveChangesAsync();
         }
+        
         public async Task DeleteAsync(int id)
         {
             var document = await _documentRepository.GetByIdAsync(id);
-            _documentRepository.Remove(document);
-            await _documentRepository.SaveChangesAsync();
+            if (document != null)
+            {
+                _documentRepository.Remove(document);
+                await _documentRepository.SaveChangesAsync();
+            }
         }
     }
 } 

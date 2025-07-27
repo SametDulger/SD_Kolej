@@ -6,7 +6,7 @@ namespace SDKolej.Business.Interfaces
 {
     public interface IStudentService
     {
-        Task<StudentDto> GetByIdAsync(int id);
+        Task<StudentDto?> GetByIdAsync(int id);
         Task<IEnumerable<StudentDto>> GetAllAsync();
         Task AddAsync(StudentDto studentDto);
         Task UpdateAsync(StudentDto studentDto);

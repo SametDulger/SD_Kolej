@@ -10,8 +10,11 @@
         <input asp-for="Name" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="ParentCourseId" class="form-label"></label>
-        <input asp-for="ParentCourseId" class="form-control" />
+        <label asp-for="ParentCourseId" class="form-label">Üst Ders</label>
+        <select asp-for="ParentCourseId" class="form-control" asp-items="ViewBag.ParentCourses">
+            <option value="">Üst Ders Seçiniz</option>
+        </select>
+        <span asp-validation-for="ParentCourseId" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Kaydet</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>

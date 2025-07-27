@@ -12,38 +12,53 @@ namespace SDKolej.Business.Services
     {
         private readonly IRepository<Absence> _absenceRepository;
         private readonly IMapper _mapper;
+        
         public AbsenceService(IRepository<Absence> absenceRepository, IMapper mapper)
         {
-            _absenceRepository = absenceRepository;
-            _mapper = mapper;
+            _absenceRepository = absenceRepository ?? throw new ArgumentNullException(nameof(absenceRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<AbsenceDto> GetByIdAsync(int id)
+        
+        public async Task<AbsenceDto?> GetByIdAsync(int id)
         {
-            var absence = await _absenceRepository.GetByIdAsync(id);
-            return _mapper.Map<AbsenceDto>(absence);
+            var absence = await _absenceRepository.GetByIdWithIncludeAsync(id, a => a.Student, a => a.Course);
+            return absence != null ? _mapper.Map<AbsenceDto>(absence) : null;
         }
+        
         public async Task<IEnumerable<AbsenceDto>> GetAllAsync()
         {
-            var absences = await _absenceRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<AbsenceDto>>(absences);
+            var absences = await _absenceRepository.GetAllWithIncludeAsync(a => a.Student, a => a.Course);
+            return absences != null ? _mapper.Map<IEnumerable<AbsenceDto>>(absences) : new List<AbsenceDto>();
         }
+        
         public async Task AddAsync(AbsenceDto absenceDto)
         {
+            if (absenceDto == null)
+                throw new ArgumentNullException(nameof(absenceDto));
+                
             var absence = _mapper.Map<Absence>(absenceDto);
             await _absenceRepository.AddAsync(absence);
             await _absenceRepository.SaveChangesAsync();
         }
+        
         public async Task UpdateAsync(AbsenceDto absenceDto)
         {
+            if (absenceDto == null)
+                throw new ArgumentNullException(nameof(absenceDto));
+                
             var absence = _mapper.Map<Absence>(absenceDto);
             _absenceRepository.Update(absence);
             await _absenceRepository.SaveChangesAsync();
         }
+        
         public async Task DeleteAsync(int id)
         {
             var absence = await _absenceRepository.GetByIdAsync(id);
-            _absenceRepository.Remove(absence);
-            await _absenceRepository.SaveChangesAsync();
+            if (absence != null)
+            {
+                _absenceRepository.Remove(absence);
+                await _absenceRepository.SaveChangesAsync();
+            }
         }
     }
 } 

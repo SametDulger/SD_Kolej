@@ -6,8 +6,11 @@
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
     <div class="mb-3">
-        <label asp-for="StudentId" class="form-label"></label>
-        <input asp-for="StudentId" class="form-control" />
+        <label asp-for="StudentId" class="form-label">Öğrenci</label>
+        <select asp-for="StudentId" class="form-control" asp-items="ViewBag.Students">
+            <option value="">Öğrenci Seçiniz</option>
+        </select>
+        <span asp-validation-for="StudentId" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Date" class="form-label"></label>
