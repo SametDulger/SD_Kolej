@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SDKolej.Business.DTOs;
 using SDKolej.WebUI.Services;
 using SDKolej.WebUI.Models;
@@ -42,9 +43,26 @@ namespace SDKolej.WebUI.Controllers
             }
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            try
+            {
+                // Üst dersleri yükle
+                var coursesResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<CourseDto>>>("/api/Course");
+                ViewBag.ParentCourses = coursesResponse.Data?.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                }).ToList() ?? new List<SelectListItem>();
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Dersler yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.ParentCourses = new List<SelectListItem>();
+                return View();
+            }
         }
 
         [HttpPost]
@@ -64,6 +82,23 @@ namespace SDKolej.WebUI.Controllers
                     TempData["Error"] = "Ders oluşturulurken hata oluştu: " + ex.Message;
                 }
             }
+            
+            // Validation hatası varsa dropdown'ları tekrar doldur
+            try
+            {
+                var parentCoursesResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<CourseDto>>>("/api/Course");
+                ViewBag.ParentCourses = parentCoursesResponse.Data?.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                }).ToList() ?? new List<SelectListItem>();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Üst dersler yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.ParentCourses = new List<SelectListItem>();
+            }
+            
             return View(courseDto);
         }
 
@@ -72,6 +107,15 @@ namespace SDKolej.WebUI.Controllers
             try
             {
                 var response = await _apiService.GetAsync<ApiResponse<CourseDto>>($"/api/Course/{id}");
+                
+                // Üst dersleri yükle
+                var coursesResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<CourseDto>>>("/api/Course");
+                ViewBag.ParentCourses = coursesResponse.Data?.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                }).ToList() ?? new List<SelectListItem>();
+
                 return View(response.Data);
             }
             catch (Exception ex)

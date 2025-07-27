@@ -1,0 +1,107 @@
+@model SDKolej.Business.DTOs.StudentCourseDto
+
+@{
+    ViewData["Title"] = "Öğrenci Dersi Düzenle";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-edit me-2"></i>
+                        Öğrenci Dersi Düzenle
+                    </h3>
+                </div>
+                <form asp-action="Edit">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="StudentId" class="control-label">Öğrenci</label>
+                                    <select asp-for="StudentId" class="form-control" asp-items="ViewBag.Students">
+                                        <option value="">Öğrenci Seçiniz</option>
+                                    </select>
+                                    <span asp-validation-for="StudentId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="CourseId" class="control-label">Ders</label>
+                                    <select asp-for="CourseId" class="form-control" asp-items="ViewBag.Courses">
+                                        <option value="">Ders Seçiniz</option>
+                                    </select>
+                                    <span asp-validation-for="CourseId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ClassId" class="control-label">Sınıf</label>
+                                    <select asp-for="ClassId" class="form-control" asp-items="ViewBag.Classes">
+                                        <option value="">Sınıf Seçiniz</option>
+                                    </select>
+                                    <span asp-validation-for="ClassId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="TeacherId" class="control-label">Öğretmen</label>
+                                    <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.Teachers">
+                                        <option value="">Öğretmen Seçiniz</option>
+                                    </select>
+                                    <span asp-validation-for="TeacherId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="AcademicYear" class="control-label">Akademik Yıl</label>
+                                    <input asp-for="AcademicYear" class="form-control" placeholder="2023-2024" />
+                                    <span asp-validation-for="AcademicYear" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="EnrollmentDate" class="control-label">Kayıt Tarihi</label>
+                                    <input asp-for="EnrollmentDate" type="date" class="form-control" />
+                                    <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <div class="form-check">
+                                        <input asp-for="IsActive" class="form-check-input" />
+                                        <label asp-for="IsActive" class="form-check-label">Aktif</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i>
+                            Güncelle
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            Listeye Dön
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

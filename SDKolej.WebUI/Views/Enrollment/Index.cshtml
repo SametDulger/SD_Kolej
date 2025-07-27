@@ -18,8 +18,8 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.StudentId</td>
-            <td>@item.ClassId</td>
+            <td>@(item.Student?.FirstName + " " + item.Student?.LastName ?? "Belirtilmemiş")</td>
+            <td>@(item.Class?.Name ?? "Belirtilmemiş")</td>
             <td>@item.Year</td>
             <td>@item.IsActive</td>
             <td>

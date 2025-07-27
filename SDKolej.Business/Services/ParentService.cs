@@ -12,38 +12,53 @@ namespace SDKolej.Business.Services
     {
         private readonly IRepository<Parent> _parentRepository;
         private readonly IMapper _mapper;
+        
         public ParentService(IRepository<Parent> parentRepository, IMapper mapper)
         {
-            _parentRepository = parentRepository;
-            _mapper = mapper;
+            _parentRepository = parentRepository ?? throw new ArgumentNullException(nameof(parentRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<ParentDto> GetByIdAsync(int id)
+        
+        public async Task<ParentDto?> GetByIdAsync(int id)
         {
             var parent = await _parentRepository.GetByIdAsync(id);
-            return _mapper.Map<ParentDto>(parent);
+            return parent != null ? _mapper.Map<ParentDto>(parent) : null;
         }
+        
         public async Task<IEnumerable<ParentDto>> GetAllAsync()
         {
             var parents = await _parentRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<ParentDto>>(parents);
         }
+        
         public async Task AddAsync(ParentDto parentDto)
         {
+            if (parentDto == null)
+                throw new ArgumentNullException(nameof(parentDto));
+                
             var parent = _mapper.Map<Parent>(parentDto);
             await _parentRepository.AddAsync(parent);
             await _parentRepository.SaveChangesAsync();
         }
+        
         public async Task UpdateAsync(ParentDto parentDto)
         {
+            if (parentDto == null)
+                throw new ArgumentNullException(nameof(parentDto));
+                
             var parent = _mapper.Map<Parent>(parentDto);
             _parentRepository.Update(parent);
             await _parentRepository.SaveChangesAsync();
         }
+        
         public async Task DeleteAsync(int id)
         {
             var parent = await _parentRepository.GetByIdAsync(id);
-            _parentRepository.Remove(parent);
-            await _parentRepository.SaveChangesAsync();
+            if (parent != null)
+            {
+                _parentRepository.Remove(parent);
+                await _parentRepository.SaveChangesAsync();
+            }
         }
     }
 } 

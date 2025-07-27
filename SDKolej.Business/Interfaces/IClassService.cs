@@ -6,7 +6,7 @@ namespace SDKolej.Business.Interfaces
 {
     public interface IClassService
     {
-        Task<ClassDto> GetByIdAsync(int id);
+        Task<ClassDto?> GetByIdAsync(int id);
         Task<IEnumerable<ClassDto>> GetAllAsync();
         Task AddAsync(ClassDto classDto);
         Task UpdateAsync(ClassDto classDto);

@@ -1,0 +1,70 @@
+@model SDKolej.Business.DTOs.StudentCourseDto
+
+@{
+    ViewData["Title"] = "Öğrenci Dersi Sil";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-trash me-2"></i>
+                        Öğrenci Dersi Sil
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger">
+                        <h4>Bu öğrenci dersini silmek istediğinizden emin misiniz?</h4>
+                    </div>
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Öğrenci:</dt>
+                        <dd class="col-sm-9">@(Model.Student?.FirstName) @(Model.Student?.LastName) - @(Model.Student?.SchoolNumber)</dd>
+
+                        <dt class="col-sm-3">Ders:</dt>
+                        <dd class="col-sm-9">@Model.Course?.Name</dd>
+
+                        <dt class="col-sm-3">Sınıf:</dt>
+                        <dd class="col-sm-9">@(Model.Class?.Name) - @(Model.Class?.Branch?.Name)</dd>
+
+                        <dt class="col-sm-3">Öğretmen:</dt>
+                        <dd class="col-sm-9">@(Model.Teacher?.FirstName) @(Model.Teacher?.LastName)</dd>
+
+                        <dt class="col-sm-3">Akademik Yıl:</dt>
+                        <dd class="col-sm-9">@Model.AcademicYear</dd>
+
+                        <dt class="col-sm-3">Durum:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge badge-success">Aktif</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Pasif</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Kayıt Tarihi:</dt>
+                        <dd class="col-sm-9">@Model.EnrollmentDate.ToString("dd/MM/yyyy")</dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-1"></i>
+                            Sil
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            Listeye Dön
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

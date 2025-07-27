@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SDKolej.Business.DTOs;
 using SDKolej.WebUI.Services;
 using SDKolej.WebUI.Models;
@@ -42,9 +43,35 @@ namespace SDKolej.WebUI.Controllers
             }
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            try
+            {
+                // Öğrencileri yükle
+                var studentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<StudentDto>>>("/api/Student");
+                ViewBag.Students = studentsResponse.Data?.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"{s.FirstName} {s.LastName} - {s.SchoolNumber}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Velileri yükle
+                var parentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<ParentDto>>>("/api/Parent");
+                ViewBag.Parents = parentsResponse.Data?.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = $"{p.FirstName} {p.LastName} - {p.Phone}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Veriler yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.Students = new List<SelectListItem>();
+                ViewBag.Parents = new List<SelectListItem>();
+                return View();
+            }
         }
 
         [HttpPost]
@@ -64,6 +91,33 @@ namespace SDKolej.WebUI.Controllers
                     TempData["Error"] = "Öğrenci veli ilişkisi oluşturulurken hata oluştu: " + ex.Message;
                 }
             }
+            
+            // Validation hatası varsa dropdown'ları tekrar doldur
+            try
+            {
+                // Öğrencileri yükle
+                var studentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<StudentDto>>>("/api/Student");
+                ViewBag.Students = studentsResponse.Data?.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"{s.FirstName} {s.LastName} - {s.SchoolNumber}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Velileri yükle
+                var parentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<ParentDto>>>("/api/Parent");
+                ViewBag.Parents = parentsResponse.Data?.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = $"{p.FirstName} {p.LastName} - {p.Phone}"
+                }).ToList() ?? new List<SelectListItem>();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Veriler yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.Students = new List<SelectListItem>();
+                ViewBag.Parents = new List<SelectListItem>();
+            }
+            
             return View(studentParentDto);
         }
 
@@ -72,6 +126,23 @@ namespace SDKolej.WebUI.Controllers
             try
             {
                 var response = await _apiService.GetAsync<ApiResponse<StudentParentDto>>($"/api/StudentParent/{id}");
+                
+                // Öğrencileri yükle
+                var studentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<StudentDto>>>("/api/Student");
+                ViewBag.Students = studentsResponse.Data?.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"{s.FirstName} {s.LastName} - {s.SchoolNumber}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Velileri yükle
+                var parentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<ParentDto>>>("/api/Parent");
+                ViewBag.Parents = parentsResponse.Data?.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = $"{p.FirstName} {p.LastName} - {p.Phone}"
+                }).ToList() ?? new List<SelectListItem>();
+
                 return View(response.Data);
             }
             catch (Exception ex)

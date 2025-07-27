@@ -23,8 +23,8 @@
                         <table class="table table-striped table-hover">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>Öğrenci ID</th>
-                                    <th>Veli ID</th>
+                                    <th>Öğrenci</th>
+                                    <th>Veli</th>
                                     <th>İşlemler</th>
                                 </tr>
                             </thead>
@@ -32,8 +32,8 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@item.StudentId</td>
-                                        <td>@item.ParentId</td>
+                                        <td>@(item.Student?.FirstName + " " + item.Student?.LastName ?? "Belirtilmemiş")</td>
+                                        <td>@(item.Parent?.FirstName + " " + item.Parent?.LastName ?? "Belirtilmemiş")</td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">

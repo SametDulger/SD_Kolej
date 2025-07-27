@@ -17,8 +17,8 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.StudentId</td>
-            <td>@item.CourseId</td>
+            <td>@(item.Student?.FirstName + " " + item.Student?.LastName ?? "Belirtilmemiş")</td>
+            <td>@(item.Course?.Name ?? "Belirtilmemiş")</td>
             <td>@item.Score</td>
             <td>
                 <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Detay</a>

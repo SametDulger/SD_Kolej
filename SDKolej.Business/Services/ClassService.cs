@@ -12,38 +12,53 @@ namespace SDKolej.Business.Services
     {
         private readonly IRepository<Class> _classRepository;
         private readonly IMapper _mapper;
+        
         public ClassService(IRepository<Class> classRepository, IMapper mapper)
         {
-            _classRepository = classRepository;
-            _mapper = mapper;
+            _classRepository = classRepository ?? throw new ArgumentNullException(nameof(classRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<ClassDto> GetByIdAsync(int id)
+        
+        public async Task<ClassDto?> GetByIdAsync(int id)
         {
-            var classEntity = await _classRepository.GetByIdAsync(id);
-            return _mapper.Map<ClassDto>(classEntity);
+            var classEntity = await _classRepository.GetByIdWithIncludeAsync(id, c => c.Branch);
+            return classEntity != null ? _mapper.Map<ClassDto>(classEntity) : null;
         }
+        
         public async Task<IEnumerable<ClassDto>> GetAllAsync()
         {
-            var classes = await _classRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<ClassDto>>(classes);
+            var classes = await _classRepository.GetAllWithIncludeAsync(c => c.Branch);
+            return classes != null ? _mapper.Map<IEnumerable<ClassDto>>(classes) : new List<ClassDto>();
         }
+        
         public async Task AddAsync(ClassDto classDto)
         {
+            if (classDto == null)
+                throw new ArgumentNullException(nameof(classDto));
+                
             var classEntity = _mapper.Map<Class>(classDto);
             await _classRepository.AddAsync(classEntity);
             await _classRepository.SaveChangesAsync();
         }
+        
         public async Task UpdateAsync(ClassDto classDto)
         {
+            if (classDto == null)
+                throw new ArgumentNullException(nameof(classDto));
+                
             var classEntity = _mapper.Map<Class>(classDto);
             _classRepository.Update(classEntity);
             await _classRepository.SaveChangesAsync();
         }
+        
         public async Task DeleteAsync(int id)
         {
             var classEntity = await _classRepository.GetByIdAsync(id);
-            _classRepository.Remove(classEntity);
-            await _classRepository.SaveChangesAsync();
+            if (classEntity != null)
+            {
+                _classRepository.Remove(classEntity);
+                await _classRepository.SaveChangesAsync();
+            }
         }
     }
 } 

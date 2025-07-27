@@ -14,8 +14,11 @@
         <input asp-for="LastName" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="BranchId" class="form-label"></label>
-        <input asp-for="BranchId" class="form-control" />
+        <label asp-for="BranchId" class="form-label">Şube</label>
+        <select asp-for="BranchId" class="form-control" asp-items="ViewBag.Branches">
+            <option value="">Şube Seçiniz</option>
+        </select>
+        <span asp-validation-for="BranchId" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Kaydet</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>

@@ -18,7 +18,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.StudentId</td>
+            <td>@(item.Student?.FirstName + " " + item.Student?.LastName ?? "Belirtilmemiş")</td>
             <td>@item.Date.ToShortDateString()</td>
             <td>@item.IsExcused</td>
             <td>@item.IsDutyStudent</td>

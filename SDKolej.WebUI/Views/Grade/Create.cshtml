@@ -5,16 +5,33 @@
 <h2>Yeni Not</h2>
 <form asp-action="Create" method="post">
     <div class="mb-3">
-        <label asp-for="StudentId" class="form-label"></label>
-        <input asp-for="StudentId" class="form-control" />
+        <label asp-for="StudentId" class="form-label">Öğrenci</label>
+        <select asp-for="StudentId" class="form-control" asp-items="ViewBag.Students">
+            <option value="">Öğrenci Seçiniz</option>
+        </select>
+        <span asp-validation-for="StudentId" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="CourseId" class="form-label"></label>
-        <input asp-for="CourseId" class="form-control" />
+        <label asp-for="CourseId" class="form-label">Ders</label>
+        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.Courses">
+            <option value="">Ders Seçiniz</option>
+        </select>
+        <span asp-validation-for="CourseId" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Score" class="form-label"></label>
-        <input asp-for="Score" class="form-control" />
+        <label asp-for="Score" class="form-label">Puan</label>
+        <input asp-for="Score" class="form-control" type="number" step="0.01" min="0" max="100" />
+        <span asp-validation-for="Score" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Term" class="form-label">Dönem</label>
+        <input asp-for="Term" class="form-control" type="number" min="1" max="2" />
+        <span asp-validation-for="Term" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Açıklama</label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Kaydet</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>

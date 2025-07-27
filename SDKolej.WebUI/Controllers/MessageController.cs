@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SDKolej.Business.DTOs;
 using SDKolej.WebUI.Services;
 using SDKolej.WebUI.Models;
@@ -42,9 +43,52 @@ namespace SDKolej.WebUI.Controllers
             }
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            try
+            {
+                // Öğrencileri yükle
+                var studentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<StudentDto>>>("/api/Student");
+                var students = studentsResponse.Data?.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"Öğrenci: {s.FirstName} {s.LastName} - {s.SchoolNumber}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Öğretmenleri yükle
+                var teachersResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<TeacherDto>>>("/api/Teacher");
+                var teachers = teachersResponse.Data?.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = $"Öğretmen: {t.FirstName} {t.LastName}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Velileri yükle
+                var parentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<ParentDto>>>("/api/Parent");
+                var parents = parentsResponse.Data?.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = $"Veli: {p.FirstName} {p.LastName} - {p.Phone}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Tüm kullanıcıları birleştir
+                var allUsers = new List<SelectListItem>();
+                allUsers.AddRange(students);
+                allUsers.AddRange(teachers);
+                allUsers.AddRange(parents);
+
+                ViewBag.Senders = allUsers;
+                ViewBag.Receivers = allUsers;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Kullanıcılar yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.Senders = new List<SelectListItem>();
+                ViewBag.Receivers = new List<SelectListItem>();
+                return View();
+            }
         }
 
         [HttpPost]
@@ -64,6 +108,50 @@ namespace SDKolej.WebUI.Controllers
                     TempData["Error"] = "Mesaj oluşturulurken hata oluştu: " + ex.Message;
                 }
             }
+            
+            // Validation hatası varsa dropdown'ları tekrar doldur
+            try
+            {
+                // Öğrencileri yükle
+                var studentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<StudentDto>>>("/api/Student");
+                var students = studentsResponse.Data?.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"Öğrenci: {s.FirstName} {s.LastName} - {s.SchoolNumber}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Öğretmenleri yükle
+                var teachersResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<TeacherDto>>>("/api/Teacher");
+                var teachers = teachersResponse.Data?.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = $"Öğretmen: {t.FirstName} {t.LastName}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Velileri yükle
+                var parentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<ParentDto>>>("/api/Parent");
+                var parents = parentsResponse.Data?.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = $"Veli: {p.FirstName} {p.LastName} - {p.Phone}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Tüm kullanıcıları birleştir
+                var allUsers = new List<SelectListItem>();
+                allUsers.AddRange(students);
+                allUsers.AddRange(teachers);
+                allUsers.AddRange(parents);
+
+                ViewBag.Senders = allUsers;
+                ViewBag.Receivers = allUsers;
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Kullanıcılar yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.Senders = new List<SelectListItem>();
+                ViewBag.Receivers = new List<SelectListItem>();
+            }
+            
             return View(messageDto);
         }
 
@@ -72,6 +160,40 @@ namespace SDKolej.WebUI.Controllers
             try
             {
                 var response = await _apiService.GetAsync<ApiResponse<MessageDto>>($"/api/Message/{id}");
+                
+                // Öğrencileri yükle
+                var studentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<StudentDto>>>("/api/Student");
+                var students = studentsResponse.Data?.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"Öğrenci: {s.FirstName} {s.LastName} - {s.SchoolNumber}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Öğretmenleri yükle
+                var teachersResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<TeacherDto>>>("/api/Teacher");
+                var teachers = teachersResponse.Data?.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = $"Öğretmen: {t.FirstName} {t.LastName}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Velileri yükle
+                var parentsResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<ParentDto>>>("/api/Parent");
+                var parents = parentsResponse.Data?.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = $"Veli: {p.FirstName} {p.LastName} - {p.Phone}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Tüm kullanıcıları birleştir
+                var allUsers = new List<SelectListItem>();
+                allUsers.AddRange(students);
+                allUsers.AddRange(teachers);
+                allUsers.AddRange(parents);
+
+                ViewBag.Senders = allUsers;
+                ViewBag.Receivers = allUsers;
+
                 return View(response.Data);
             }
             catch (Exception ex)

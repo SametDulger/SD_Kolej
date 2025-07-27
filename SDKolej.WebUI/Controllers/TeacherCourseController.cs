@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SDKolej.Business.DTOs;
 using SDKolej.WebUI.Services;
 using SDKolej.WebUI.Models;
@@ -42,9 +43,35 @@ namespace SDKolej.WebUI.Controllers
             }
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            try
+            {
+                // Öğretmenleri yükle
+                var teachersResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<TeacherDto>>>("/api/Teacher");
+                ViewBag.Teachers = teachersResponse.Data?.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = $"{t.FirstName} {t.LastName}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Dersleri yükle
+                var coursesResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<CourseDto>>>("/api/Course");
+                ViewBag.Courses = coursesResponse.Data?.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                }).ToList() ?? new List<SelectListItem>();
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Veriler yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.Teachers = new List<SelectListItem>();
+                ViewBag.Courses = new List<SelectListItem>();
+                return View();
+            }
         }
 
         [HttpPost]
@@ -64,6 +91,33 @@ namespace SDKolej.WebUI.Controllers
                     TempData["Error"] = "Öğretmen dersi oluşturulurken hata oluştu: " + ex.Message;
                 }
             }
+            
+            // Validation hatası varsa dropdown'ları tekrar doldur
+            try
+            {
+                // Öğretmenleri yükle
+                var teachersResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<TeacherDto>>>("/api/Teacher");
+                ViewBag.Teachers = teachersResponse.Data?.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = $"{t.FirstName} {t.LastName}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Dersleri yükle
+                var coursesResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<CourseDto>>>("/api/Course");
+                ViewBag.Courses = coursesResponse.Data?.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                }).ToList() ?? new List<SelectListItem>();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Veriler yüklenirken hata oluştu: " + ex.Message;
+                ViewBag.Teachers = new List<SelectListItem>();
+                ViewBag.Courses = new List<SelectListItem>();
+            }
+            
             return View(teacherCourseDto);
         }
 
@@ -72,6 +126,23 @@ namespace SDKolej.WebUI.Controllers
             try
             {
                 var response = await _apiService.GetAsync<ApiResponse<TeacherCourseDto>>($"/api/TeacherCourse/{id}");
+                
+                // Öğretmenleri yükle
+                var teachersResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<TeacherDto>>>("/api/Teacher");
+                ViewBag.Teachers = teachersResponse.Data?.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = $"{t.FirstName} {t.LastName}"
+                }).ToList() ?? new List<SelectListItem>();
+
+                // Dersleri yükle
+                var coursesResponse = await _apiService.GetAsync<ApiResponse<IEnumerable<CourseDto>>>("/api/Course");
+                ViewBag.Courses = coursesResponse.Data?.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                }).ToList() ?? new List<SelectListItem>();
+
                 return View(response.Data);
             }
             catch (Exception ex)

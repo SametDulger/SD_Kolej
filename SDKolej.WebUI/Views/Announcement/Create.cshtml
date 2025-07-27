@@ -5,6 +5,20 @@
 <h2>Yeni Duyuru</h2>
 <form asp-action="Create" method="post">
     <div class="mb-3">
+        <label asp-for="TeacherId" class="form-label">Öğretmen</label>
+        <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.Teachers">
+            <option value="">Öğretmen Seçiniz</option>
+        </select>
+        <span asp-validation-for="TeacherId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ClassId" class="form-label">Sınıf</label>
+        <select asp-for="ClassId" class="form-control" asp-items="ViewBag.Classes">
+            <option value="">Sınıf Seçiniz</option>
+        </select>
+        <span asp-validation-for="ClassId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
         <label asp-for="Title" class="form-label"></label>
         <input asp-for="Title" class="form-control" />
     </div>

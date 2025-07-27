@@ -23,7 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// CORS
+// CORS - Production için daha güvenli ayarlar yapılmalı
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -39,8 +39,26 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<SchoolDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    // Password requirements
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+    
+    // Lockout settings
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+    
+    // User settings
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+})
+.AddEntityFrameworkStores<SchoolDbContext>()
+.AddDefaultTokenProviders();
 
 // JWT Settings
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -67,7 +85,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings.Issuer ?? "SDKolej",
         ValidAudience = jwtSettings.Audience ?? "SDKolej",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey ?? "DefaultSecretKey"))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey ?? "DefaultSecretKey")),
+        ClockSkew = TimeSpan.Zero
     };
 });
 
@@ -91,7 +110,10 @@ builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddScoped<IClassCourseService, ClassCourseService>();
 builder.Services.AddScoped<ITeacherCourseService, TeacherCourseService>();
 builder.Services.AddScoped<IStudentParentService, StudentParentService>();
-builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IStudentCourseService, StudentCourseService>();
+
+// JWT Service
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(StudentDto).Assembly);

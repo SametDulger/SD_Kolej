@@ -6,7 +6,7 @@ namespace SDKolej.Business.Interfaces
 {
     public interface IEnrollmentService
     {
-        Task<EnrollmentDto> GetByIdAsync(int id);
+        Task<EnrollmentDto?> GetByIdAsync(int id);
         Task<IEnumerable<EnrollmentDto>> GetAllAsync();
         Task AddAsync(EnrollmentDto enrollmentDto);
         Task UpdateAsync(EnrollmentDto enrollmentDto);

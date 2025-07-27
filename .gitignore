@@ -1,15 +1,6 @@
-# .NET Core build folders
-bin/
-obj/
+# SD Kolej - ASP.NET Core Projesi
 
-# Visual Studio files
-.vs/
-*.user
-*.userosscache
-*.sln.docstates
-*.userprefs
-
-# Build results
+# .NET Core / ASP.NET Core
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -24,6 +15,40 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# Entity Framework
+Migrations/
+**/Migrations/
+
+# Database Files
+*.mdf
+*.ldf
+*.ndf
+*.db
+*.sqlite
+*.sqlite3
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
 
 # Visual Studio Code
 .vscode/
@@ -40,119 +65,35 @@ msbuild.wrn
 *.userosscache
 *.sln.docstates
 
-# NuGet Packages
-*.nupkg
-*.snupkg
-**/[Pp]ackages/*
-!**/[Pp]ackages/build/
-*.nuget.props
-*.nuget.targets
+# Logs and Temporary Files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Entity Framework
-Migrations/
+tmp/
+temp/
 
-# SQL Server files
-*.mdf
-*.ldf
-*.ndf
+# OS Generated Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# Business Intelligence projects
-*.rdl.data
-*.bim.layout
-*.bim_*.settings
-*.rptproj.rsuser
-*- [Bb]ackup.rdl
-*- [Bb]ackup ([0-9]).rdl
-*- [Bb]ackup ([0-9][0-9]).rdl
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
 
-# Microsoft Fakes
-FakesAssemblies/
+# Environment and Configuration
+.env
+.env.test
+.env.production
+appsettings.Development.json
+appsettings.Production.json
 
-# GhostDoc plugin setting file
-*.GhostDoc.xml
-
-# Node.js Tools for Visual Studio
-.ntvs_analysis.dat
-node_modules/
-
-# Visual Studio 6 build log
-*.plg
-
-# Visual Studio 6 workspace options file
-*.opt
-
-# Visual Studio 6 auto-generated workspace file (contains which files were open etc.)
-*.vbw
-
-# Visual Studio LightSwitch build output
-**/*.HTMLClient/GeneratedArtifacts
-**/*.DesktopClient/GeneratedArtifacts
-**/*.DesktopClient/ModelManifest.xml
-**/*.Server/GeneratedArtifacts
-**/*.Server/ModelManifest.xml
-_Pvt_Extensions
-
-# Paket dependency manager
-.paket/paket.exe
-paket-files/
-
-# FAKE - F# Make
-.fake/
-
-# CodeRush personal settings
-.cr/personal
-
-# Python Tools for Visual Studio (PTVS)
-__pycache__/
-*.pyc
-
-# Cake - Uncomment if you are using it
-# tools/**
-# !tools/packages.config
-
-# Tabs Studio
-*.tss
-
-# Telerik's JustMock configuration file
-*.jmconfig
-
-# BizTalk build output
-*.btp.cs
-*.btm.cs
-*.odx.cs
-*.xsd.cs
-
-# OpenCover UI analysis results
-OpenCover/
-
-# Azure Stream Analytics local run output
-ASALocalRun/
-
-# MSBuild Binary and Structured Log
-*.binlog
-
-# NVidia Nsight GPU debugger configuration file
-*.nvuser
-
-# MFractors (Xamarin productivity tool) working folder
-.mfractor/
-
-# Local History for Visual Studio
-.localhistory/
-
-# BeatPulse healthcheck temp database
-healthchecksdb
-
-# Backup folder for Package Reference Convert tool in Visual Studio 2017
-MigrationBackup/
-
-# Ionide (cross platform F# VS Code tools) working folder
-.ionide/
-
-# Fody - auto-generated XML schema
-FodyWeavers.xsd
-
-# VS Code files for those working on multiple tools
+# IDE and Editor Files
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -160,113 +101,54 @@ FodyWeavers.xsd
 !.vscode/extensions.json
 *.code-workspace
 
-# Local History for Visual Studio Code
-.history/
+.idea/
+*.sln.iml
 
-# Windows Installer files from build outputs
+*.swp
+*.swo
+*~
+
+# Build and Package Files
+*.binlog
+
 *.cab
 *.msi
 *.msix
 *.msm
 *.msp
 
-# JetBrains Rider
-.idea/
-*.sln.iml
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
 
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
 
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
+# Coverage Reports
 coverage/
+*.coverage
+*.coveragexml
 
-# nyc test coverage
-.nyc_output
+# Security and Secrets
+secrets.json
+*.pfx
+*.key
+*.pem
 
-# Dependency directories
-node_modules/
+# Application Specific
+uploads/
+files/
+temp-uploads/
 
-# Optional npm cache directory
-.npm
+.cache/
+*.cache
 
-# Optional REPL history
-.node_repl_history
+# Development Tools
+local.settings.json
+launchSettings.json
 
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
-.env.test
-.env.production
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
-
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
-# Temporary folders
-tmp/
-temp/
-
-# Editor directories and files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db 
+# Backup Files
+*.bak
+*.backup
+*~ 

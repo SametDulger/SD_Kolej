@@ -15,6 +15,14 @@
                     <form asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         
+                        <div class="form-group mb-3">
+                            <label asp-for="StudentId" class="form-label">Öğrenci</label>
+                            <select asp-for="StudentId" class="form-control" asp-items="ViewBag.Students">
+                                <option value="">Öğrenci Seçiniz</option>
+                            </select>
+                            <span asp-validation-for="StudentId" class="text-danger"></span>
+                        </div>
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
